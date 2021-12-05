@@ -34,7 +34,7 @@ print(code)
 ws = websocket.WebSocket()
 
 ws.connect("ws://127.0.0.1:8888/api/kernels/" + kernel['id'] + "/channels",
-           header={'Authorization': 'Token 240d1a6cca260512929e5a876a8a62fe0f34cc5c3560bb92'})
+           header=headers)
 print(ws)
 
 
@@ -53,10 +53,9 @@ def send_execute_request(code):
     return msg
 
 
-send_execute_request("hi there")
-
 for c in code:
     ws.send(json.dumps(send_execute_request(c)))
+
 
 # We ignore all the other messages, we just get the code execution output
 # (this needs to be improved for production to take into account errors, large cell output, images, etc.)
